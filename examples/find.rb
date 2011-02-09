@@ -20,10 +20,14 @@ ARGV.each {|arg|
 
   puts "#{arg}:"
 
-  ('.' .. 'zzzzzzzzzzzzzzzzz').each {|string|
-    if string.tripcode.match(Regexp.new(arg, ($exact ? nil : 'i')))
-      puts "    #{string}: #{string.tripcode}"
-      next
-    end
+  1.upto(42) {|n|
+    ('.' .. 'z').to_a.repeated_combination(n).each {|string|
+      string = string.join
+
+      if string.tripcode.match(Regexp.new(arg, ($exact ? nil : 'i')))
+        puts "    #{string}: #{string.tripcode}"
+        next
+      end
+    }
   }
 }
